@@ -13,16 +13,17 @@ public class Triangle1 {
         int b = scan.nextInt();
         int c = scan.nextInt();
         System.out.println("The lengths of the triangle sides are:" + a + ", " + b + ", " + c + ".");
-        /** calculating the triangle perimeter */
+        // calculating the triangle perimeter
         int perimeter = a + b + c;
         System.out.println("The perimeter of the triangle is: " + perimeter);
-        /** dividing the triangle perimeter by 2 */
-        int s = perimeter / 2;
-        /** calculating the triangle area */
-        double area = Math.sqrt(s * (s - a) * (s - b) * (s - c));
+        // dividing the triangle perimeter by 2 to calculate the semi-perimeter
+        int semiPerimeter = perimeter / 2;
+        // calculating the triangle area
+        double area = Math.sqrt(semiPerimeter *
+                (semiPerimeter - a) *
+                (semiPerimeter - b) *
+                (semiPerimeter - c));
         System.out.println("The area of the triangle is: " + area);
-
         scan.close();
-
     } // end of method main
 } // end of class Triangle

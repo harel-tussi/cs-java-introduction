@@ -5,9 +5,9 @@ public class Date {
     final int DEAULT_MONTH = 1;
     final int DEAULT_YEAR = 2000;
 
-    private int _day;
-    private int _month;
-    private int _year;
+    private int _day = DEAULT_DAY;
+    private int _month = DEAULT_MONTH;
+    private int _year = DEAULT_YEAR;
 
     // constructors
     /**
@@ -22,10 +22,6 @@ public class Date {
             _day = day;
             _month = month;
             _year = year;
-        } else {
-            _day = DEAULT_DAY;
-            _month = DEAULT_MONTH;
-            _year = DEAULT_YEAR;
         }
     }
 
@@ -35,9 +31,9 @@ public class Date {
      * @param date to be copied
      */
     public Date(Date date) {
-        _day = date._day;
-        _month = date._month;
-        _year = date._year;
+        _day = date.getDay();
+        _month = date.getMonth();
+        _year = date.getYear();
     }
 
     // getters
@@ -98,29 +94,87 @@ public class Date {
      * @param other date to be compared to
      */
     public boolean equals(Date other) {
-        return _day == other._day && _month == other._month && _year == other._year;
+        return _day == other.getDay() && _month == other.getMonth() && _year == other.getYear();
     }
 
     /**
-     * check if a date is before this date
+     * check if this date is before other date
      * 
      * @param other date to be compared to
      */
     public boolean before(Date other) {
         // check if dates are equal
-        if (equals(other)) {
+        if (this.equals(other)) {
             return false;
         }
-        return calculateDate(_day, _month, _year) < calculateDate(other._day, other._month, other._year);
+        return calculateDate(_day, _month, _year) < calculateDate(other.getDay(), other.getMonth(), other.getYear());
     }
 
     /**
-     * check if a date is after this date
+     * check if this date is after other date
      * 
      * @param other date to be compared to
      */
     public boolean after(Date other) {
-        return !before(other);
+        return other.before(this);
+    }
+
+    /**
+     * return the difference between this date and other date
+     * 
+     * @param other date to be compared to
+     * @return the difference between this date and other date in days
+     */
+    public int difference(Date other) {
+        return Math.abs(
+                this.calculateDate(_day, _month, _year)
+                        - this.calculateDate(other.getDay(), other.getMonth(), other.getYear()));
+    }
+
+    /**
+     * 
+     * @return a string representation of the date in the format dd/mm/yyyy
+     */
+    public String toString() {
+        return this.getFormattedDay() + "/" + getFormattedMonth() + "/" + _year;
+    }
+
+    /**
+     * calculate tommorow's date
+     * 
+     * @return tomorrow's date
+     */
+    public Date tomorrow() {
+        int day = _day;
+        int month = _month;
+        int year = _year;
+        if (day == 31 && month == 12) {
+            day = 1;
+            month = 1;
+            year++;
+        } else if (day == 31) {
+            day = 1;
+            month++;
+        } else {
+            day++;
+        }
+        return new Date(day, month, year);
+    }
+
+    /**
+     * 
+     * @return a day in the format dd
+     */
+    private String getFormattedDay() {
+        return this._day < 10 ? "0" + this._day : "" + this._day;
+    }
+
+    /**
+     * 
+     * @return a month in the format mm
+     */
+    private String getFormattedMonth() {
+        return this._month < 10 ? "0" + this._month : "" + this._month;
     }
 
     /**
@@ -141,7 +195,7 @@ public class Date {
     }
 
     /**
-     * Check if a date is valid
+     * Check if a given date is valid
      * 
      * @param day   the day in the month (1-31)
      * @param month the month in the year
@@ -149,18 +203,19 @@ public class Date {
      * @return true if the date is valid, false otherwise
      */
     private boolean isValidDate(int day, int month, int year) {
+        // check if day, month and year are in range
         if (day < 1 || day > 31 || month < 1 || month > 12 || year < 0) {
             return false;
         }
-        // check if the date is valid
+        // check if long month (31 days) than month must be in [1,3,5,7,8,10,12]
         if (day == 31 && (month == 2 || month == 4 || month == 6 || month == 9 || month == 11)) {
             return false;
         }
-        // check if the date is valid
+        // check if month is february must not be 30 days
         if (day == 30 && month == 2) {
             return false;
         }
-        // check if the date is valid
+        // check if month is february and year is leap year
         if (day == 29 && month == 2 && year % 4 != 0) {
             return false;
         }

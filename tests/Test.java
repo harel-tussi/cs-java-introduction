@@ -1,7 +1,9 @@
 package tests;
 
+import maman11.Triangle1;
+
 public class Test {
     public static void main(String[] args) {
-        System.out.println(('A' > 'B'));
+        Triangle1 triangle = new Triangle1();
     }
 }
