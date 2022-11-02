@@ -1,14 +1,14 @@
-package maman11;
-
 import java.util.Scanner;
 
 public class Triangle2 {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
+        // opening message and description of the program
         System.out.println(
                 "This program determines if a triangle is valid"
                         + " and if it is, what kind of triangle it is.");
 
+        // get the lengths of the triangle's sides from user
         System.out.println("Please enter the three lengths"
                 + " of the triangle's sides");
         int a = scan.nextInt();
@@ -17,7 +17,7 @@ public class Triangle2 {
 
         /*
          * checking if the triangle is valid by the triangle inequality theorem
-         * and all side lengths are positive
+         * and if all side lengths are positive
          */
         if (a + b <= c || a + c <= b || b + c <= a || a < 0 || b < 0 || c < 0) {
             System.out.println("The numbers: " + a + ", " + b + " and " + c + " " + "cannot represent a triangle");

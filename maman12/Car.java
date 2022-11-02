@@ -4,16 +4,17 @@ package maman12;
  * Car
  */
 public class Car {
+    // constants
     private final int DEFAULT_ID = 9999999;
     private final char DEFAULT_TYPE = 'A';
 
+    // instance variables
     private int _id = DEFAULT_ID;
     private char _type = DEFAULT_TYPE;
     private String _brand;
     private boolean _isManual;
 
     // constructors
-
     /**
      * creates a new Car
      * 
@@ -44,7 +45,6 @@ public class Car {
     }
 
     // getters
-
     /** gets the id */
     public int getId() {
         return _id;
@@ -66,7 +66,6 @@ public class Car {
     }
 
     // setters
-
     /**
      * sets the id
      * 
