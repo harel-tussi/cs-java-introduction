@@ -148,6 +148,7 @@ public class Date {
         int day = _day;
         int month = _month;
         int year = _year;
+
         if (day == 31 && month == 12) {
             day = 1;
             month = 1;
@@ -155,10 +156,21 @@ public class Date {
         } else if (day == 31) {
             day = 1;
             month++;
+        } else if (day == 30 && (month == 4 || month == 6 || month == 9 || month == 11)) {
+            day = 1;
+            month++;
+        } else if (day == 28 && month == 2 && !this.isLeapYear(year)) {
+            day = 1;
+            month++;
+        } else if (day == 29 && month == 2 && this.isLeapYear(year)) {
+            day = 1;
+            month++;
         } else {
             day++;
         }
+
         return new Date(day, month, year);
+
     }
 
     /**
@@ -195,6 +207,16 @@ public class Date {
     }
 
     /**
+     * is the year a leap year
+     * 
+     * @param year
+     * @return true if the year is a leap year
+     */
+    private boolean isLeapYear(int year) {
+        return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
+    }
+
+    /**
      * Check if a given date is valid
      * 
      * @param day   the day in the month (1-31)
@@ -216,7 +238,7 @@ public class Date {
             return false;
         }
         // check if month is february and year is leap year
-        if (day == 29 && month == 2 && year % 4 != 0) {
+        if (day == 29 && month == 2 && !this.isLeapYear(year)) {
             return false;
         }
 
