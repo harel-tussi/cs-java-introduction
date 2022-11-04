@@ -19,9 +19,9 @@ public class Date {
      */
     public Date(int day, int month, int year) {
         if (this.isValidDate(day, month, year)) {
-            _day = day;
-            _month = month;
-            _year = year;
+            this._day = day;
+            this._month = month;
+            this._year = year;
         }
     }
 
@@ -31,25 +31,25 @@ public class Date {
      * @param date to be copied
      */
     public Date(Date date) {
-        _day = date.getDay();
-        _month = date.getMonth();
-        _year = date.getYear();
+        this._day = date.getDay();
+        this._month = date.getMonth();
+        this._year = date.getYear();
     }
 
     // getters
     /** gets the year */
     public int getYear() {
-        return _year;
+        return this._year;
     }
 
     /** gets the month */
     public int getMonth() {
-        return _month;
+        return this._month;
     }
 
     /** gets the Day */
     public int getDay() {
-        return _day;
+        return this._day;
     }
 
     // setters
@@ -59,8 +59,8 @@ public class Date {
      * @param yearToSet the value to be set
      */
     public void setYear(int yearToSet) {
-        if (this.isValidDate(_day, _month, yearToSet)) {
-            _year = yearToSet;
+        if (this.isValidDate(this._day, this._month, yearToSet)) {
+            this._year = yearToSet;
         }
     }
 
@@ -70,8 +70,8 @@ public class Date {
      * @param monthToSet the value to be set
      */
     public void setMonth(int monthToSet) {
-        if (this.isValidDate(_day, monthToSet, _year)) {
-            _month = monthToSet;
+        if (this.isValidDate(this._day, monthToSet, this._year)) {
+            this._month = monthToSet;
         }
     }
 
@@ -81,8 +81,8 @@ public class Date {
      * @param dayToSet the value to be set
      */
     public void setDay(int dayToSet) {
-        if (this.isValidDate(dayToSet, _month, _year)) {
-            _day = dayToSet;
+        if (this.isValidDate(dayToSet, this._month, this._year)) {
+            this._day = dayToSet;
         }
     }
 
@@ -94,7 +94,7 @@ public class Date {
      * @param other date to be compared to
      */
     public boolean equals(Date other) {
-        return _day == other.getDay() && _month == other.getMonth() && _year == other.getYear();
+        return this._day == other.getDay() && this._month == other.getMonth() && this._year == other.getYear();
     }
 
     /**
@@ -107,7 +107,8 @@ public class Date {
         if (this.equals(other)) {
             return false;
         }
-        return calculateDate(_day, _month, _year) < calculateDate(other.getDay(), other.getMonth(), other.getYear());
+        return calculateDate(this._day, this._month, this._year) < calculateDate(other.getDay(), other.getMonth(),
+                other.getYear());
     }
 
     /**
@@ -127,7 +128,7 @@ public class Date {
      */
     public int difference(Date other) {
         return Math.abs(
-                this.calculateDate(_day, _month, _year)
+                this.calculateDate(this._day, this._month, this._year)
                         - this.calculateDate(other.getDay(), other.getMonth(), other.getYear()));
     }
 
@@ -136,7 +137,7 @@ public class Date {
      * @return a string representation of the date in the format dd/mm/yyyy
      */
     public String toString() {
-        return this.getFormattedDay() + "/" + getFormattedMonth() + "/" + _year;
+        return this.getFormattedDay() + "/" + this.getFormattedMonth() + "/" + this._year;
     }
 
     /**
@@ -145,9 +146,9 @@ public class Date {
      * @return tomorrow's date
      */
     public Date tomorrow() {
-        int day = _day;
-        int month = _month;
-        int year = _year;
+        int day = this._day;
+        int month = this._month;
+        int year = this._year;
 
         if (day == 31 && month == 12) {
             day = 1;

@@ -17,13 +17,13 @@ public class Rent {
      * @param returnDate the date of the return
      */
     public Rent(String name, Car car, Date pickDate, Date returnDate) {
-        _name = name;
-        _car = car;
-        _pickDate = pickDate;
+        this._name = name;
+        this._car = car;
+        this._pickDate = pickDate;
         if (returnDate.after(pickDate))
-            _returnDate = returnDate;
+            this._returnDate = returnDate;
         else
-            _returnDate = pickDate.tomorrow();
+            this._returnDate = pickDate.tomorrow();
     }
 
     /**
@@ -32,10 +32,10 @@ public class Rent {
      * @param rent to be copied
      */
     public Rent(Rent other) {
-        _name = other.getName();
-        _car = other.getCar();
-        _pickDate = other.getPickDate();
-        _returnDate = other.getReturnDate();
+        this._name = other.getName();
+        this._car = other.getCar();
+        this._pickDate = other.getPickDate();
+        this._returnDate = other.getReturnDate();
     }
 
     // getters
@@ -45,7 +45,7 @@ public class Rent {
      * @return the name of the renter
      */
     public String getName() {
-        return _name;
+        return this._name;
     }
 
     /**
@@ -54,7 +54,7 @@ public class Rent {
      * @return the car rented
      */
     public Car getCar() {
-        return _car;
+        return this._car;
     }
 
     /**
@@ -63,7 +63,7 @@ public class Rent {
      * @return the date of the pick up
      */
     public Date getPickDate() {
-        return _pickDate;
+        return this._pickDate;
     }
 
     /**
@@ -72,7 +72,7 @@ public class Rent {
      * @return the date of the return
      */
     public Date getReturnDate() {
-        return _returnDate;
+        return this._returnDate;
     }
 
     // setters
@@ -83,7 +83,7 @@ public class Rent {
      * @param name the name of the renter
      */
     public void setName(String name) {
-        _name = name;
+        this._name = name;
     }
 
     /**
@@ -92,7 +92,7 @@ public class Rent {
      * @param car the rented car
      */
     public void setCar(Car car) {
-        _car = car;
+        this._car = car;
     }
 
     /**
@@ -104,7 +104,7 @@ public class Rent {
      */
     public void setPickDate(Date pickDate) {
         if (pickDate.before(_returnDate))
-            _pickDate = pickDate;
+            this._pickDate = pickDate;
     }
 
     /**
@@ -116,7 +116,7 @@ public class Rent {
      */
     public void setReturnDate(Date returnDate) {
         if (returnDate.after(_pickDate))
-            _returnDate = returnDate;
+            this._returnDate = returnDate;
     }
 
     // methods
@@ -128,10 +128,10 @@ public class Rent {
      * @return true if the rents are the same, false otherwise
      */
     public boolean equals(Rent other) {
-        return _name.equals(other.getName()) &&
-                _car.equals(other.getCar()) &&
-                _pickDate.equals(other.getPickDate()) &&
-                _returnDate.equals(other.getReturnDate());
+        return this._name.equals(other.getName()) &&
+                this._car.equals(other.getCar()) &&
+                this._pickDate.equals(other.getPickDate()) &&
+                this._returnDate.equals(other.getReturnDate());
     }
 
     /**
@@ -140,7 +140,7 @@ public class Rent {
      * @return the number of days the car was rented
      */
     public int howManyDays() {
-        return _pickDate.difference(_returnDate);
+        return this._pickDate.difference(_returnDate);
     }
 
     /**
@@ -155,28 +155,22 @@ public class Rent {
         final int D_PRICE = 240;
 
         final int daysRented = this.howManyDays();
-
+        int price;
+        switch (this._car.getType()) {
+            case 'A':
+                price = B_PRICE;
+            case 'B':
+                price = B_PRICE;
+            case 'C':
+                price = C_PRICE;
+            default:
+                price = D_PRICE;
+        }
         if (daysRented < 7) {
-            if (_car.getType() == 'A') {
-                return A_PRICE * daysRented;
-            } else if (_car.getType() == 'B') {
-                return B_PRICE * daysRented;
-            } else if (_car.getType() == 'C') {
-                return C_PRICE * daysRented;
-            } else {
-                return D_PRICE * daysRented;
-            }
+            return price * daysRented;
         } else {
             final int weeks = daysRented / 7;
-            if (_car.getType() == 'A') {
-                return (A_PRICE * daysRented) - (weeks * 7 * A_PRICE);
-            } else if (_car.getType() == 'B') {
-                return (B_PRICE * daysRented) - (weeks * 7 * B_PRICE);
-            } else if (_car.getType() == 'C') {
-                return (C_PRICE * daysRented) - (weeks * 7 * C_PRICE);
-            } else {
-                return (D_PRICE * daysRented) - (weeks * 7 * D_PRICE);
-            }
+            return (price * daysRented) - (weeks * 7 * price);
         }
     }
 
@@ -196,29 +190,19 @@ public class Rent {
         }
     }
 
+    /**
+     * Check if there is a double listing of a rent for the
+     * same person and car with an overlap in the rental days
+     * 
+     * @param other the other rent to compare to
+     * @return if there is an overlap return new rent otherwise return null
+     */
     public Rent overlap(Rent other) {
-
         if (!_name.equals(other.getName()) || !_car.equals(other.getCar())) {
             return null;
         } else {
-            // check if the rents overlap
-            if (_pickDate.before(other.getReturnDate()) && _returnDate.after(other.getPickDate())) {
-                // find the start date
-                Date startDate = _pickDate;
-                if (other.getPickDate().after(startDate)) {
-                    startDate = other.getPickDate();
-                }
-
-                // find the end date
-                Date endDate = _returnDate;
-                if (other.getReturnDate().before(endDate)) {
-                    endDate = other.getReturnDate();
-                }
-
-                return new Rent(_name, _car, startDate, endDate);
-            } else {
-                return null;
-            }
+            // check if there is an overlap between the 2 rents
+            return null;
         }
     }
 
@@ -228,6 +212,6 @@ public class Rent {
      */
     public String toString() {
         return "Name:" + _name + " From:" + _pickDate + " To:" + _returnDate + " Type:" + _car.getType() + " Days:"
-                + howManyDays() + " Price:" + getPrice();
+                + this.howManyDays() + " Price:" + getPrice();
     }
 }

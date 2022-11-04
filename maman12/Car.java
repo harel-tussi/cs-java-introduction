@@ -24,12 +24,12 @@ public class Car {
      * @param manual is the car manual
      */
     public Car(int id, char type, String brand, boolean isManual) {
-        if (_isValidId(id))
-            _id = id;
-        if (_isValidType(type))
-            _type = type;
-        _brand = brand;
-        _isManual = isManual;
+        if (this._isValidId(id))
+            this._id = id;
+        if (this._isValidType(type))
+            this._type = type;
+        this._brand = brand;
+        this._isManual = isManual;
     }
 
     /**
@@ -38,31 +38,31 @@ public class Car {
      * @param car to be copied
      */
     public Car(Car car) {
-        _id = car._id;
-        _type = car._type;
-        _brand = car._brand;
-        _isManual = car._isManual;
+        this._id = car._id;
+        this._type = car._type;
+        this._brand = car._brand;
+        this._isManual = car._isManual;
     }
 
     // getters
     /** gets the id */
     public int getId() {
-        return _id;
+        return this._id;
     }
 
     /** gets the type */
     public char getType() {
-        return _type;
+        return this._type;
     }
 
     /** gets the brand */
     public String getBrand() {
-        return _brand;
+        return this._brand;
     }
 
     /** gets the isManual */
     public boolean isManual() {
-        return _isManual;
+        return this._isManual;
     }
 
     // setters
@@ -73,7 +73,7 @@ public class Car {
      */
     public void setId(int id) {
         if (_isValidId(id))
-            _id = id;
+            this._id = id;
     }
 
     /**
@@ -83,7 +83,7 @@ public class Car {
      */
     public void setType(char type) {
         if (_isValidType(type))
-            _type = type;
+            this._type = type;
     }
 
     /**
@@ -92,7 +92,7 @@ public class Car {
      * @param brand the brand to set
      */
     public void setBrand(String brand) {
-        _brand = brand;
+        this._brand = brand;
     }
 
     /**
@@ -101,7 +101,7 @@ public class Car {
      * @param isManual the isManual to set
      */
     public void setIsManual(boolean manual) {
-        _isManual = manual;
+        this._isManual = manual;
     }
 
     // methods
@@ -110,7 +110,8 @@ public class Car {
      * prints the car details
      */
     public String toString() {
-        return "id:" + _id + " type:" + _type + " brand:" + _brand + " gear:" + (_isManual ? "manual" : "auto");
+        return "id:" + this._id + " type:" + this._type + " brand:" + this._brand + " gear:"
+                + (this._isManual ? "manual" : "auto");
     }
 
     /**
@@ -120,9 +121,9 @@ public class Car {
      * @return true if equal, false otherwise
      */
     public boolean equals(Car other) {
-        return _type == other.getType() &&
-                _brand == other.getBrand() &&
-                _isManual == other.isManual();
+        return this._type == other.getType() &&
+                this._brand == other.getBrand() &&
+                this._isManual == other.isManual();
     }
 
     /**
@@ -136,13 +137,13 @@ public class Car {
         if (this.equals(other))
             return false;
         // return true if this car type is better than other car type
-        else if (_type > other.getType())
+        else if (this._type > other.getType())
             return true;
         // return false if this car type is worse than other car type
         else if (_type < other.getType())
             return false;
         else {
-            if (_isManual && !other.isManual())
+            if (this._isManual && !other.isManual())
                 return true;
             else
                 return false;
