@@ -21,7 +21,7 @@ public class Rent {
         this._car = car;
         this._pickDate = pickDate;
         if (returnDate.after(pickDate))
-            this._returnDate = returnDate;
+            this._returnDate = new Date(returnDate);
         else
             this._returnDate = pickDate.tomorrow();
     }
@@ -158,11 +158,14 @@ public class Rent {
         int price;
         switch (this._car.getType()) {
             case 'A':
-                price = B_PRICE;
+                price = A_PRICE;
+                break;
             case 'B':
                 price = B_PRICE;
+                break;
             case 'C':
                 price = C_PRICE;
+                break;
             default:
                 price = D_PRICE;
         }
@@ -170,7 +173,9 @@ public class Rent {
             return price * daysRented;
         } else {
             final int weeks = daysRented / 7;
-            return (price * daysRented) - (weeks * 7 * price);
+            final int pricePerWeek = price * 7;
+            final double discountPerWeek = pricePerWeek * 0.1;
+            return (int) ((price * daysRented) - weeks * (discountPerWeek));
         }
     }
 
@@ -201,8 +206,17 @@ public class Rent {
         if (!_name.equals(other.getName()) || !_car.equals(other.getCar())) {
             return null;
         } else {
-            // check if there is an overlap between the 2 rents
-            return null;
+            // check if there is an overlap in the rental days if so return new rent where
+            // pickdate is min and return date is max
+            if (this._pickDate.before(other.getPickDate()) && this._returnDate.after(other.getPickDate())) {
+                return new Rent(_name, _car, _pickDate, other.getReturnDate());
+            } else if (_pickDate.after(other.getPickDate()) && _returnDate.before(other.getReturnDate())) {
+                return new Rent(_name, _car, other.getPickDate(), _returnDate);
+            } else if (_pickDate.before(other.getReturnDate()) && _returnDate.after(other.getReturnDate())) {
+                return new Rent(_name, _car, other.getPickDate(), _returnDate);
+            } else {
+                return null;
+            }
         }
     }
 
@@ -212,6 +226,6 @@ public class Rent {
      */
     public String toString() {
         return "Name:" + _name + " From:" + _pickDate + " To:" + _returnDate + " Type:" + _car.getType() + " Days:"
-                + this.howManyDays() + " Price:" + getPrice();
+                + this.howManyDays() + " Price:" + this.getPrice();
     }
 }
