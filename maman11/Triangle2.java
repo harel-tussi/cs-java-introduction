@@ -1,3 +1,7 @@
+// Coded by: Harel Tussi
+// ID: 314 615 923
+// Date: 05/11/2022
+
 import java.util.Scanner;
 
 public class Triangle2 {
