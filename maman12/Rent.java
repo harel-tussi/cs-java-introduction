@@ -214,9 +214,10 @@ public class Rent {
                 return new Rent(_name, _car, other.getPickDate(), _returnDate);
             } else if (_pickDate.before(other.getReturnDate()) && _returnDate.after(other.getReturnDate())) {
                 return new Rent(_name, _car, other.getPickDate(), _returnDate);
-            } else {
-                return null;
             }
+
+            return null;
+
         }
     }
 
