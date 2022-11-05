@@ -38,10 +38,7 @@ public class Car {
      * @param car to be copied
      */
     public Car(Car car) {
-        this._id = car._id;
-        this._type = car._type;
-        this._brand = car._brand;
-        this._isManual = car._isManual;
+        this(car.getId(), car.getType(), car.getBrand(), car.isManual());
     }
 
     // getters

@@ -32,10 +32,7 @@ public class Rent {
      * @param rent to be copied
      */
     public Rent(Rent other) {
-        this._name = other.getName();
-        this._car = other.getCar();
-        this._pickDate = other.getPickDate();
-        this._returnDate = other.getReturnDate();
+        this(other.getName(), other.getCar(), other.getPickDate(), other.getReturnDate());
     }
 
     // getters

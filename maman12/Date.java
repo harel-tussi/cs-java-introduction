@@ -31,9 +31,7 @@ public class Date {
      * @param date to be copied
      */
     public Date(Date date) {
-        this._day = date.getDay();
-        this._month = date.getMonth();
-        this._year = date.getYear();
+        this(date.getDay(), date.getMonth(), date.getYear());
     }
 
     // getters
