@@ -6,11 +6,14 @@ package maman12;
 public class Car {
     // constants
     private final int DEFAULT_ID = 9999999;
-    private final char DEFAULT_TYPE = 'A';
+    private final char CAR_TYPE_A = 'A';
+    private final char CAR_TYPE_B = 'B';
+    private final char CAR_TYPE_C = 'C';
+    private final char CAR_TYPE_D = 'D';
 
     // instance variables
     private int _id = DEFAULT_ID;
-    private char _type = DEFAULT_TYPE;
+    private char _type = CAR_TYPE_A;
     private String _brand;
     private boolean _isManual;
 
@@ -178,7 +181,7 @@ public class Car {
      * 
      */
     private boolean _isValidType(char type) {
-        return type == 'A' || type == 'B' || type == 'C' || type == 'D';
+        return type == CAR_TYPE_A || type == CAR_TYPE_B || type == CAR_TYPE_C || type == CAR_TYPE_D;
     }
 
 }
