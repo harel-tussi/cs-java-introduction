@@ -1,23 +1,28 @@
 package maman12;
 
 /**
- * Car
+ * Class that represents a car.
+ * 
+ * @author Harel Tussi
+ * @version 2023a
  */
 public class Car {
     // constants
-    private final int DEFAULT_ID = 9999999;
+    private final int MAX_CAR_ID = 9999999;
+    private final int MIN_CAR_ID = 1000000;
     private final char CAR_TYPE_A = 'A';
     private final char CAR_TYPE_B = 'B';
     private final char CAR_TYPE_C = 'C';
     private final char CAR_TYPE_D = 'D';
 
     // instance variables
-    private int _id = DEFAULT_ID;
+    private int _id = MAX_CAR_ID;
     private char _type = CAR_TYPE_A;
     private String _brand;
     private boolean _isManual;
 
     // constructors
+
     /**
      * creates a new Car
      * 
@@ -45,34 +50,36 @@ public class Car {
     }
 
     // getters
-    /** gets the id */
+
+    /** gets the car id */
     public int getId() {
         return this._id;
     }
 
-    /** gets the type */
+    /** gets the car type */
     public char getType() {
         return this._type;
     }
 
-    /** gets the brand */
+    /** gets the car brand */
     public String getBrand() {
         return this._brand;
     }
 
-    /** gets the isManual */
+    /** gets the car isManual */
     public boolean isManual() {
         return this._isManual;
     }
 
     // setters
+
     /**
      * sets the id
      * 
      * @param id the id to set
      */
     public void setId(int id) {
-        if (_isValidId(id))
+        if (this._isValidId(id))
             this._id = id;
     }
 
@@ -82,7 +89,7 @@ public class Car {
      * @param type the type to set
      */
     public void setType(char type) {
-        if (_isValidType(type))
+        if (this._isValidType(type))
             this._type = type;
     }
 
@@ -133,7 +140,7 @@ public class Car {
      * @return true if this car is better, false otherwise
      */
     public boolean better(Car other) {
-        // return false if this is equal to other
+        // return false if this car is equal to other car
         if (this.equals(other))
             return false;
         // return true if this car type is better than other car type
@@ -143,12 +150,12 @@ public class Car {
         else if (_type < other.getType())
             return false;
         else {
-            if (this._isManual && !other.isManual())
+            // return true if this car is auto and other is manual
+            if (!this._isManual && other.isManual())
                 return true;
             else
                 return false;
         }
-
     }
 
     /**
@@ -170,7 +177,7 @@ public class Car {
      * @return true if the car id is valid
      */
     private boolean _isValidId(int id) {
-        return id >= 1000000 && id <= 9999999;
+        return id >= MIN_CAR_ID && id <= MAX_CAR_ID;
     }
 
     /**

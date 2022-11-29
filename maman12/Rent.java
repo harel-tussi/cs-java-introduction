@@ -1,6 +1,16 @@
 package maman12;
 
+/**
+ * Class that represents a rent.
+ * 
+ * @author Harel Tussi
+ * @version 2023a
+ */
 public class Rent {
+    // constants
+    final int A_PRICE = 100, B_PRICE = 150, C_PRICE = 180, D_PRICE = 240, WEEK = 7;
+    final double WEEK_DISCOUNT = 0.1;
+
     // instance variables
     private String _name;
     private Car _car;
@@ -146,11 +156,6 @@ public class Rent {
      * @return the price of the rent
      */
     public int getPrice() {
-        final int A_PRICE = 100;
-        final int B_PRICE = 150;
-        final int C_PRICE = 180;
-        final int D_PRICE = 240;
-
         final int daysRented = this.howManyDays();
         int price;
         switch (this._car.getType()) {
@@ -166,12 +171,12 @@ public class Rent {
             default:
                 price = D_PRICE;
         }
-        if (daysRented < 7) {
+        if (daysRented < WEEK) {
             return price * daysRented;
         } else {
-            final int weeks = daysRented / 7;
-            final int pricePerWeek = price * 7;
-            final double discountPerWeek = pricePerWeek * 0.1;
+            final int weeks = daysRented / WEEK;
+            final int pricePerWeek = price * WEEK;
+            final double discountPerWeek = pricePerWeek * WEEK_DISCOUNT;
             return (int) ((price * daysRented) - weeks * (discountPerWeek));
         }
     }
@@ -200,21 +205,20 @@ public class Rent {
      * @return if there is an overlap return new rent otherwise return null
      */
     public Rent overlap(Rent other) {
-        if (!_name.equals(other.getName()) || !_car.equals(other.getCar())) {
+        // check if the names are the same and the cars are the same
+        if (!this._name.equals(other.getName()) || !this._car.equals(other.getCar())) {
+            return null;
+        }
+        // if this rent ends before other starts
+        // or other ends before this starts
+        else if (this._returnDate.before(other.getPickDate()) || other.getReturnDate().before(this._pickDate)) {
             return null;
         } else {
-            // check if there is an overlap in the rental days if so return new rent where
-            // pickdate is min and return date is max
-            if (this._pickDate.before(other.getPickDate()) && this._returnDate.after(other.getPickDate())) {
-                return new Rent(_name, _car, _pickDate, other.getReturnDate());
-            } else if (_pickDate.after(other.getPickDate()) && _returnDate.before(other.getReturnDate())) {
-                return new Rent(_name, _car, other.getPickDate(), _returnDate);
-            } else if (_pickDate.before(other.getReturnDate()) && _returnDate.after(other.getReturnDate())) {
-                return new Rent(_name, _car, other.getPickDate(), _returnDate);
-            }
-
-            return null;
-
+            // return new rent with the overlap dates
+            Date newPickDate = this._pickDate.before(other.getPickDate()) ? this._pickDate : other.getPickDate();
+            Date newReturnDate = this._returnDate.after(other.getReturnDate()) ? this._returnDate
+                    : other.getReturnDate();
+            return new Rent(_name, _car, new Date(newPickDate), new Date(newReturnDate));
         }
     }
 

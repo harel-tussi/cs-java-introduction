@@ -10,47 +10,56 @@ package maman12;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("********** Test Date - Started **********");
+        System.out.println("********** Test Rent - Started **********");
         System.out.println("\n1. Testing Constructors and toString:");
-        Date d1 = new Date(3, 5, 1998);
-        System.out.println("\td1:" + d1);
-        Date d2 = new Date(d1);
-        System.out.println("\td2:" + d2);
+        Rent r1 = new Rent("Ruthi", new Car(1234567, 'A', "Opel", false), new Date(1, 2, 2020), new Date(5, 2, 2020));
+        System.out.println("\tr1:" + r1);
+        Rent r2 = new Rent(r1);
+        System.out.println("\tr2:" + r2);
         System.out.println("\n2. Testing accessors and mutators:");
-        d1.setDay(8);
-        d1.setMonth(10);
-        d1.setYear(2016);
-        System.out.println("\td1:" + d1);
-        System.out.println("\tday of d1:" + d1.getDay());
-        System.out.println("\tmonth of d1:" + d1.getMonth());
-        System.out.println("\tyear of d1:" + d1.getYear());
+        r1.setName("Maya");
+        r1.setCar(new Car(9876543, 'B', "BMW", true));
+        r1.setPickDate(new Date(3, 2, 2020));
+        r1.setReturnDate(new Date(9, 2, 2020));
+        System.out.println("\tr1:" + r1);
+        System.out.println("\tname of r1:" + r1.getName());
+        System.out.println("\tcar of r1:" + r1.getCar());
+        System.out.println("\tpickDate of r1:" + r1.getPickDate());
+        System.out.println("\treturnDate of r1:" + r1.getReturnDate());
         System.out.println("\n3. Testing equals method:");
-        Date d3 = new Date(3, 5, 1998);
-        Date d4 = new Date(3, 5, 1998);
-        System.out.println("\td3:" + d3);
-        System.out.println("\td4:" + d4);
-        if (d3.equals(d4))
-            System.out.println("\td3 is the same date as d4");
+        Rent r3 = new Rent("Rambo", new Car(3344556, 'D', "Volvo", false), new Date(10, 4, 2021),
+                new Date(20, 4, 2021));
+        Rent r4 = new Rent("Rambo", new Car(1234567, 'D', "Volvo", false), new Date(10, 4, 2021),
+                new Date(20, 4, 2021));
+        System.out.println("\tr2:" + r2);
+        System.out.println("\tr3:" + r3);
+        System.out.println("\tr4:" + r4);
+        if (r2.equals(r3))
+            System.out.println("\tr2 is the same Rent as r3");
         else
-            System.out.println("\td3 isn't the same date as d4");
-        System.out.println("\n4. Testing before method:");
-        if (d3.before(d1))
-            System.out.println("\td3 is before d1");
+            System.out.println("\tr2 isn't the same Rent as r3");
+        if (r3.equals(r4))
+            System.out.println("\tr3 is the same Rent as r4");
         else
-            System.out.println("\td3 isn't before d1");
-        System.out.println("\n5. Testing after method:");
-        if (d3.after(d1))
-            System.out.println("\td3 is after d1");
-        else
-            System.out.println("\td3 isn't after d1");
-        System.out.println("\n6. Testing difference method:");
-        System.out.println("\tThe difference in days between dates d1 and d3 is : " + d1.difference(d3));
-        System.out.println("\n7. Testing tomorrow method:");
-        Date d6 = new Date(6, 11, 2016);
-        System.out.println("\t" + d6 + " tomorrow is : " + d6.tomorrow());
-        Date d7 = new Date(31, 12, 2019);
-        System.out.println("\t" + d7 + " tomorrow is : " + d7.tomorrow());
-        System.out.println("\n********** Test Date - Finished **********\n");
+            System.out.println("\tr3 isn't the same Rent as r4");
 
+        System.out.println("\n4. Testing howMantDays method:");
+        System.out.println("\tr2: " + r2.howManyDays() + " days.");
+        System.out.println("\tr3: " + r3.howManyDays() + " days.");
+        System.out.println("\n5. Testing getPrice method:");
+        System.out.println("\tprice of r2: " + r2.getPrice());
+        System.out.println("\tprice of r3: " + r3.getPrice());
+        System.out.println("\n6. Testing upgrade method:");
+
+        System.out
+                .println("\tupgrade r2 to car type 'D' returns: " + r2.upgrade(new Car(1234567, 'D', "Volvo", false)));
+        System.out.println("\n7. Testing overlap method:");
+        Rent r5 = new Rent("Bob", new Car(1234567, 'A', "Opel", false), new Date(1, 2, 2020), new Date(5, 2, 2020));
+        Rent r6 = new Rent("Bob", new Car(1234567, 'A', "Opel", false), new Date(4, 2, 2020), new Date(8, 2, 2020));
+        System.out.println("\tr5:" + r5);
+        System.out.println("\tr6:" + r6);
+        System.out.println("\toverlap of r5 and r6 is: " + r5.overlap(r6));
+
+        System.out.println("\n********** Test Rent - Finished **********\n");
     }
 }
