@@ -1,7 +1,5 @@
 package maman13;
 
-import java.util.Arrays;
-
 /**
  * Ex13
  */
