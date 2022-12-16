@@ -8,7 +8,7 @@ package maman12;
  */
 public class Date {
     private final int TWO_DIGITS = 10, DAY31 = 31, DAY30 = 30, DAY29 = 29, DAY28 = 28, DAY1 = 1, YEAR2000 = 2000;
-    private final int JAN = 1, FEB = 2, MARCH = 3, APRIL = 4, MAY = 5, JUN = 6, JUL = 7, AUG = 8, SEP = 9, OCT = 10,
+    private final int JAN = 1, FEB = 2, APRIL = 4, JUN = 6, SEP = 9,
             NOV = 11, DEC = 12;
     private int _day;
     private int _month;
