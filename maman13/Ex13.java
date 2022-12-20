@@ -1,7 +1,11 @@
 package maman13;
 
 /**
- * Ex13
+ * Ex 13 - Maman 13
+ * 
+ * @author Harel Tussi
+ * @version 2023a
+ * 
  */
 public class Ex13 {
 
@@ -20,6 +24,7 @@ public class Ex13 {
      * 
      * @param s string of 0s and 1s
      * @return the minimum number of swaps required to make the string alternating
+     *         between 0 and 1.
      */
     public static int alternating(String s) {
         int countZeroes = 0; // changes required when the string starts from 0
@@ -42,49 +47,23 @@ public class Ex13 {
         return Math.min(countZeroes, countOnes) / 2;
     }
 
-    private static int f(int[] a, int low, int high) {
-        int res = 0;
-        for (int i = low; i <= high; i++)
-            res += a[i];
-        return res;
-    }
-
     /**
      * A. Given an array of numbers, the function returns the maximum
      * length of a subarray that has an even sum.
+     * 
      * B. Time Complexity: O(n^3) we are iterating over the array 3 times in nested
-     * loops. Space Complexity: O(1) we are using constant variables that are not
+     * loops.
+     * Space Complexity: O(1) we are using constant variables that are not
      * dependent on the array length.
+     * 
+     * D. Time Complexity: O(n) we are iterating over the array once
+     * Space Complexity: O(1) we are using constant variables to store the
+     * temp and the maximum sum.
      * 
      * @param a an array of numbers
      * @return the maximum length of a subarray that has an even sum
      */
     public static int what(int[] a) {
-        int temp = 0;
-        for (int i = 0; i < a.length; i++) {
-            for (int j = i; j < a.length; j++) {
-                int c = f(a, i, j);
-                if (c % 2 == 0) {
-                    if (j - i + 1 > temp)
-                        temp = j - i + 1;
-                }
-            }
-        }
-        return temp;
-    }
-
-    /**
-     * A. Given an array of numbers, it returns the maximum
-     * length of a subarray that has an even sum.
-     * B. Time Complexity: O(n) we are iterating over the array once
-     * Space Complexity: O(1) we are using constant variables to store the
-     * temp and the maximum sum.
-     * 
-     * 
-     * @param a an array of numbers
-     * @return the maximum length of a subarray that has an even sum
-     */
-    public static int whatBetter(int[] a) {
         int sum = 0; // total sum of array
         int length = a.length; // length of array
         int result = 0; // max length of subarray with even sum
@@ -114,8 +93,9 @@ public class Ex13 {
      * Checks if there is a way to reach the last index of the array by moving
      * forward or backward by the value of the current index.
      * 
-     * @param a an array of positive integers
-     * @param i current index
+     * @param a       an array of positive integers
+     * @param i       current index
+     * @param visited array of visited indexes
      * @return true if there is a way to reach the last index of the array by moving
      *         forward or backward by the, otherwise false
      */
@@ -176,7 +156,7 @@ public class Ex13 {
      * 
      * @param currentHeight
      * @param newHeight
-     * @return
+     * @return true if can climb to the new height, otherwise false
      */
     private static boolean isClimbable(int currentHeight, int newHeight) {
 
@@ -212,7 +192,7 @@ public class Ex13 {
      */
     private static int shortestPath(int[][] drm, int r, int c, int prev) {
 
-        // if we are out of bounds, it means this path is not possible
+        // if prince is out of bounds, it means this path is not possible
         if (!isInBounds(drm, r, c)) {
             return Integer.MAX_VALUE;
         }
@@ -225,7 +205,7 @@ public class Ex13 {
             return 1;
         }
 
-        // if we reached a cell with value -2 it means we already visited it
+        // if we reached a cell with value -2 it means we already visited this path
         if (height == -2) {
             return Integer.MAX_VALUE;
         }
@@ -270,6 +250,7 @@ public class Ex13 {
      */
     public static int prince(int[][] drm, int i, int j) {
         int result = shortestPath(drm, i, j, drm[i][j]);
+        // if there is no path to the evil, return -1 otherwise return the shortest path
         return result == Integer.MAX_VALUE ? -1 : result;
     }
 
